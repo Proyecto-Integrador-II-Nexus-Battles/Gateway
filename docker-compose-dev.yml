@@ -1,0 +1,10 @@
+version: "0.1.0"
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/home/app
