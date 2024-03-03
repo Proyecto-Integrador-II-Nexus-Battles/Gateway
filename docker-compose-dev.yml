@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "9876:9876"
+      - "443:443"
     volumes:
       - ./:/home/app

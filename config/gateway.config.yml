@@ -1,0 +1,98 @@
+http:
+  port: 443
+admin:
+  port: 9876
+  host: localhost
+
+apiEndpoints:
+  vitrinaProductos:
+    host: "cabra.thenexusbattlesii.online"
+    paths: "/*"
+  carroCompras:
+    host: "dragon.thenexusbattlesii.online"
+    paths: "/*"
+  manejoUsuarios:
+    host: "conejo.thenexusbattlesii.online"
+    paths: "/*"
+  portalPagos:
+    host: "serpiente.thenexusbattlesii.online"
+    paths: "/*"
+  views:
+    host: "tigre.thenexusbattlesii.online"
+    paths: "/*"
+  inventario:
+    host: "mono.thenexusbattlesii.online"
+    paths: "/*"
+  listaDeseos:
+    host: "cabra.thenexusbattlesii.online"
+    paths: "/*"
+
+services:
+  vitrinaProductosService:
+    url: "http://vitrina_productos.thenexusbattlesii.online"
+  carroComprasService:
+    url: "http://carro_compras.thenexusbattlesii.online"
+  manejoUsuariosService:
+    url: "http://manejo_usuarios.thenexusbattlesii.online"
+  portalPagosService:
+    url: "http://portal_pagos.thenexusbattlesii.online"
+  viewsService:
+    url: "http://views.thenexusbattlesii.online"
+  inventarioService:
+    url: "http://inventario.thenexusbattlesii.online"
+  listaDeseosService:
+    url: "http://lista_deseos.thenexusbattlesii.online"
+
+routes:
+  - path: "/*"
+    methods: ["GET", "POST"]
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: vitrinaProductosService
+              changeOrigin: true
+  - path: "/*"
+    methods: ["GET", "POST"]
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: carroComprasService
+              changeOrigin: true
+  - path: "/*"
+    methods: ["GET", "POST"]
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: manejoUsuariosService
+              changeOrigin: true
+  - path: "/*"
+    methods: ["GET", "POST"]
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: portalPagosService
+              changeOrigin: true
+  - path: "/*"
+    methods: ["GET", "POST"]
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: viewsService
+              changeOrigin: true
+  - path: "/*"
+    methods: ["GET", "POST"]
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: inventarioService
+              changeOrigin: true
+  - path: "/*"
+    methods: ["GET", "POST"]
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: listaDeseosService
+              changeOrigin: true
+
+policies:
+  - basic-auth
