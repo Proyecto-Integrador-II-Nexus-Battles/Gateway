@@ -6,7 +6,7 @@ admin:
 
 apiEndpoints:
   vitrinaProductos:
-    host: "caballo.thenexusbattlesii.online:12443"
+    host: "caballo.thenexusbattlesii.online:14443"
     paths: "/*"
   carroCompras:
     host: "dragon.thenexusbattlesii.online:5443"
