@@ -1,47 +1,47 @@
 http:
-  port: 443
+  port: 5000
 admin:
   port: 9876
   host: localhost
 
 apiEndpoints:
   vitrinaProductos:
-    host: "cabra.thenexusbattlesii.online"
+    host: "caballo.thenexusbattlesii.online:12443"
     paths: "/*"
   carroCompras:
-    host: "dragon.thenexusbattlesii.online"
+    host: "dragon.thenexusbattlesii.online:5443"
     paths: "/*"
   manejoUsuarios:
-    host: "conejo.thenexusbattlesii.online"
+    host: "conejo.thenexusbattlesii.online:4443"
     paths: "/*"
   portalPagos:
-    host: "serpiente.thenexusbattlesii.online"
+    host: "serpiente.thenexusbattlesii.online:13443"
     paths: "/*"
   views:
-    host: "tigre.thenexusbattlesii.online"
+    host: "tigre.thenexusbattlesii.online:14443"
     paths: "/*"
   inventario:
-    host: "mono.thenexusbattlesii.online"
+    host: "mono.thenexusbattlesii.online:8443"
     paths: "/*"
   listaDeseos:
-    host: "cabra.thenexusbattlesii.online"
+    host: "cabra.thenexusbattlesii.online:12443"
     paths: "/*"
 
 services:
   vitrinaProductosService:
-    url: "http://vitrina_productos.thenexusbattlesii.online"
+    url: "http://caballo.thenexusbattlesii.online"
   carroComprasService:
-    url: "http://carro_compras.thenexusbattlesii.online"
+    url: "http://dragon.thenexusbattlesii.online"
   manejoUsuariosService:
-    url: "http://manejo_usuarios.thenexusbattlesii.online"
+    url: "http://conejo.thenexusbattlesii.online"
   portalPagosService:
-    url: "http://portal_pagos.thenexusbattlesii.online"
+    url: "http://serpiente.thenexusbattlesii.online"
   viewsService:
-    url: "http://views.thenexusbattlesii.online"
+    url: "http://tigre.thenexusbattlesii.online"
   inventarioService:
-    url: "http://inventario.thenexusbattlesii.online"
+    url: "http://mono.thenexusbattlesii.online"
   listaDeseosService:
-    url: "http://lista_deseos.thenexusbattlesii.online"
+    url: "http://cabra.thenexusbattlesii.online"
 
 routes:
   - path: "/*"
