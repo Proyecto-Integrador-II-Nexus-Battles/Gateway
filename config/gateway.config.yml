@@ -5,24 +5,9 @@ admin:
   host: localhost
 
 apiEndpoints:
-  vitrinaProductos:
-    host: "caballo.thenexusbattlesii.online"
-    paths: "*"
-  carroCompras:
-    host: "dragon.thenexusbattlesii.online"
-    paths: "*"
-  manejoUsuarios:
-    host: "conejo.thenexusbattlesii.online"
-    paths: "*"
-  portalPagos:
-    host: "serpiente.thenexusbattlesii.online"
-    paths: "*"
-  inventario:
-    host: "mono.thenexusbattlesii.online"
-    paths: "*"
-  listaDeseos:
-    host: "cabra.thenexusbattlesii.online"
-    paths: "*"
+  api:
+    host: "*"
+    paths: "/*"
 
 serviceEndpoints:
   vitrinaProductosService:
@@ -42,36 +27,44 @@ policies:
   - proxy
 
 pipelines:
-  - name: default
+  default:
     apiEndpoints:
-      - vitrinaProductos
-      - carroCompras
-      - manejoUsuarios
-      - portalPagos
-      - inventario
-      - listaDeseos
+      - api
     policies:
       - proxy:
-          - action:
+          - condition:
+              name: pathMatch
+              pattern: "/vitrina"
+            action:
               serviceEndpoint: vitrinaProductosService
               changeOrigin: true
-      - proxy:
-          - action:
+          - condition:
+              name: pathMatch
+              pattern: "/carro"
+            action:
               serviceEndpoint: carroComprasService
               changeOrigin: true
-      - proxy:
-          - action:
+          - condition:
+              name: pathMatch
+              pattern: "/usuario"
+            action:
               serviceEndpoint: manejoUsuariosService
               changeOrigin: true
-      - proxy:
-          - action:
+          - condition:
+              name: pathMatch
+              pattern: "/pagos"
+            action:
               serviceEndpoint: portalPagosService
               changeOrigin: true
-      - proxy:
-          - action:
+          - condition:
+              name: pathMatch
+              pattern: "/inventario"
+            action:
               serviceEndpoint: inventarioService
               changeOrigin: true
-      - proxy:
-          - action:
+          - condition:
+              name: pathMatch
+              pattern: "/deseos"
+            action:
               serviceEndpoint: listaDeseosService
               changeOrigin: true
