@@ -6,93 +6,72 @@ admin:
 
 apiEndpoints:
   vitrinaProductos:
-    host: "caballo.thenexusbattlesii.online:14443"
-    paths: "/*"
+    host: "caballo.thenexusbattlesii.online"
+    paths: "*"
   carroCompras:
-    host: "dragon.thenexusbattlesii.online:5443"
-    paths: "/*"
+    host: "dragon.thenexusbattlesii.online"
+    paths: "*"
   manejoUsuarios:
-    host: "conejo.thenexusbattlesii.online:4443"
-    paths: "/*"
+    host: "conejo.thenexusbattlesii.online"
+    paths: "*"
   portalPagos:
-    host: "serpiente.thenexusbattlesii.online:13443"
-    paths: "/*"
-  views:
-    host: "tigre.thenexusbattlesii.online:14443"
-    paths: "/*"
+    host: "serpiente.thenexusbattlesii.online"
+    paths: "*"
   inventario:
-    host: "mono.thenexusbattlesii.online:8443"
-    paths: "/*"
+    host: "mono.thenexusbattlesii.online"
+    paths: "*"
   listaDeseos:
-    host: "cabra.thenexusbattlesii.online:12443"
-    paths: "/*"
+    host: "cabra.thenexusbattlesii.online"
+    paths: "*"
 
-services:
+serviceEndpoints:
   vitrinaProductosService:
-    url: "http://caballo.thenexusbattlesii.online"
+    url: "http://caballo.thenexusbattlesii.online:14443"
   carroComprasService:
-    url: "http://dragon.thenexusbattlesii.online"
+    url: "http://dragon.thenexusbattlesii.online:5443"
   manejoUsuariosService:
-    url: "http://conejo.thenexusbattlesii.online"
+    url: "http://conejo.thenexusbattlesii.online:4443"
   portalPagosService:
-    url: "http://serpiente.thenexusbattlesii.online"
-  viewsService:
-    url: "http://tigre.thenexusbattlesii.online"
+    url: "http://serpiente.thenexusbattlesii.online:13443"
   inventarioService:
-    url: "http://mono.thenexusbattlesii.online"
+    url: "http://mono.thenexusbattlesii.online:8443"
   listaDeseosService:
-    url: "http://cabra.thenexusbattlesii.online"
+    url: "http://cabra.thenexusbattlesii.online:12443"
 
-routes:
-  - path: "/*"
-    methods: ["GET", "POST"]
+policies:
+  - proxy
+
+pipelines:
+  - name: default
+    apiEndpoints:
+      - vitrinaProductos
+      - carroCompras
+      - manejoUsuarios
+      - portalPagos
+      - inventario
+      - listaDeseos
     policies:
       - proxy:
           - action:
               serviceEndpoint: vitrinaProductosService
               changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
       - proxy:
           - action:
               serviceEndpoint: carroComprasService
               changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
       - proxy:
           - action:
               serviceEndpoint: manejoUsuariosService
               changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
       - proxy:
           - action:
               serviceEndpoint: portalPagosService
               changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: viewsService
-              changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
       - proxy:
           - action:
               serviceEndpoint: inventarioService
               changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
       - proxy:
           - action:
               serviceEndpoint: listaDeseosService
               changeOrigin: true
-
-policies:
-  - basic-auth
