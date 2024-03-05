@@ -5,94 +5,34 @@ admin:
   host: localhost
 
 apiEndpoints:
-  vitrinaProductos:
-    host: "caballo.thenexusbattlesii.online:14443"
-    paths: "/*"
-  carroCompras:
-    host: "dragon.thenexusbattlesii.online:5443"
-    paths: "/*"
-  manejoUsuarios:
-    host: "conejo.thenexusbattlesii.online:4443"
-    paths: "/*"
-  portalPagos:
-    host: "serpiente.thenexusbattlesii.online:13443"
-    paths: "/*"
-  views:
-    host: "tigre.thenexusbattlesii.online:14443"
-    paths: "/*"
-  inventario:
-    host: "mono.thenexusbattlesii.online:8443"
-    paths: "/*"
-  listaDeseos:
-    host: "cabra.thenexusbattlesii.online:12443"
+  api:
+    host: "*"
     paths: "/*"
 
-services:
-  vitrinaProductosService:
-    url: "http://caballo.thenexusbattlesii.online"
-  carroComprasService:
-    url: "http://dragon.thenexusbattlesii.online"
-  manejoUsuariosService:
-    url: "http://conejo.thenexusbattlesii.online"
-  portalPagosService:
-    url: "http://serpiente.thenexusbattlesii.online"
-  viewsService:
-    url: "http://tigre.thenexusbattlesii.online"
-  inventarioService:
-    url: "http://mono.thenexusbattlesii.online"
-  listaDeseosService:
-    url: "http://cabra.thenexusbattlesii.online"
-
-routes:
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: vitrinaProductosService
-              changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: carroComprasService
-              changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: manejoUsuariosService
-              changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: portalPagosService
-              changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: viewsService
-              changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: inventarioService
-              changeOrigin: true
-  - path: "/*"
-    methods: ["GET", "POST"]
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: listaDeseosService
-              changeOrigin: true
+serviceEndpoints:
+  firstService:
+    url: "http://back:3000"
+  secondService:
+    url: "http://back1:3000"
 
 policies:
-  - basic-auth
+  - proxy
+
+pipelines:
+  pipeline_1:
+    apiEndpoints:
+      - api
+    policies:
+      - proxy:
+          - condition:
+              name: pathMatch
+              pattern: "/carro*"
+            action:
+              serviceEndpoint: firstService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/orden*"
+            action:
+              serviceEndpoint: secondService
+              changeOrigin: true
