@@ -5,32 +5,39 @@ admin:
   host: localhost
 
 apiEndpoints:
+  api1:
+    host: "*"
+    paths: "/usuario/logIn"
   api:
     host: "*"
     paths: "/*"
 
 serviceEndpoints:
   vitrinaProductosService:
-    url: "http://caballo.thenexusbattlesii.online:14443"
+    url: "http://caballo.thenexusbattlesii.online:4000"
   carroComprasService:
-    url: "http://dragon.thenexusbattlesii.online:5443"
+    url: "http://dragon.thenexusbattlesii.online:4000"
   manejoUsuariosService:
-    url: "http://conejo.thenexusbattlesii.online:4443"
+    url: "http://conejo.thenexusbattlesii.online:4000"
   portalPagosService:
-    url: "http://serpiente.thenexusbattlesii.online:13443"
+    url: "http://serpiente.thenexusbattlesii.online:4000"
   inventarioService:
-    url: "http://mono.thenexusbattlesii.online:8443"
+    url: "http://mono.thenexusbattlesii.online:4000"
   listaDeseosService:
-    url: "http://cabra.thenexusbattlesii.online:12443"
+    url: "http://cabra.thenexusbattlesii.online:4000"
 
 policies:
   - proxy
+  - jwt
 
 pipelines:
-  default:
+  pipeline_1:
     apiEndpoints:
       - api
     policies:
+      - jwt:
+          - action:
+              secretOrPublicKey: ${JWT_SECRET-"mySecret"}
       - proxy:
           - condition:
               name: pathMatch
@@ -67,4 +74,12 @@ pipelines:
               pattern: "/deseos"
             action:
               serviceEndpoint: listaDeseosService
+              changeOrigin: true
+  pipeline_2:
+    apiEndpoints:
+      - api1
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: manejoUsuariosService
               changeOrigin: true
