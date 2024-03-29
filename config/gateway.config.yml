@@ -1,5 +1,9 @@
-http:
+https:
   port: 5000
+  tls:
+    "*.thenexusbattlesii.online":
+      key: ../certs/privkey.pem
+      cert: ../certs/cert.pem
 admin:
   port: 9876
   host: localhost
@@ -7,28 +11,29 @@ admin:
 apiEndpoints:
   api1:
     host: "*"
-    paths: "/usuario/logIn"
+    paths: "/usuario/*"
   api:
     host: "*"
     paths: "/*"
 
 serviceEndpoints:
   vitrinaProductosService:
-    url: "http://caballo.thenexusbattlesii.online:4000"
+    url: "https://caballo.thenexusbattlesii.online:4000"
   carroComprasService:
-    url: "http://dragon.thenexusbattlesii.online:4000"
+    url: "https://dragon.thenexusbattlesii.online:4000"
   manejoUsuariosService:
-    url: "http://conejo.thenexusbattlesii.online:4000"
+    url: "https://conejo.thenexusbattlesii.online:4000"
   portalPagosService:
-    url: "http://serpiente.thenexusbattlesii.online:4000"
+    url: "https://serpiente.thenexusbattlesii.online:4000"
   inventarioService:
-    url: "http://mono.thenexusbattlesii.online:4000"
+    url: "https://mono.thenexusbattlesii.online:4000"
   listaDeseosService:
-    url: "http://cabra.thenexusbattlesii.online:4000"
+    url: "https://cabra.thenexusbattlesii.online:4000"
 
 policies:
   - proxy
   - jwt
+  - request-transformer
 
 pipelines:
   pipeline_1:
@@ -37,7 +42,13 @@ pipelines:
     policies:
       - jwt:
           - action:
-              secretOrPublicKey: ${JWT_SECRET-"mySecret"}
+              secretOrPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJvA2NnE7PAKYrEDafXpOOQp0yahOhKXgPpRA5BUtOpTmVOmRhmTSKKQPJ8CXsCu6TM9TOQxKrIpZcyRe44zpq39sQGDDbmUpUXWv3Sq/qDaHY2REaCccXZpZPOx5cGTuKTX9uGxi9SKm8+quYSa1FYHWde47CDfSs88gsBsYngQIDAQAB
+              checkCredentialExistence: false
+      - request-transformer:
+          - action:
+              body:
+                add:
+                  user: "req.user"
       - proxy:
           - condition:
               name: pathMatch
@@ -75,6 +86,7 @@ pipelines:
             action:
               serviceEndpoint: listaDeseosService
               changeOrigin: true
+
   pipeline_2:
     apiEndpoints:
       - api1

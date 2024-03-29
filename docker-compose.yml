@@ -1,9 +1,5 @@
-version: "0.1.0"
 services:
   gateway:
-    build: .
+    image: davopaco/gateway
     ports:
-      - "5000:9876"
-      - "443:443"
-    volumes:
-      - ./:/home/app
+      - "5000:5000"
