@@ -1,5 +1,5 @@
 services:
   gateway:
-    image: davopaco/gateway
+    image: davopaco/gateway:latest
     ports:
       - "5000:5000"

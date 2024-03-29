@@ -2,8 +2,8 @@ https:
   port: 5000
   tls:
     "*.thenexusbattlesii.online":
-      key: ../certs/privkey.pem
-      cert: ../certs/cert.pem
+      key: ./certs/privkey.pem
+      cert: ./certs/cert.pem
 admin:
   port: 9876
   host: localhost
