@@ -1,0 +1,162 @@
+https:
+  port: 5000
+  tls:
+    "*.thenexusbattlesii.online":
+      key: ./certs/privkey.pem
+      cert: ./certs/cert.pem
+    "default":
+      key: ./certs/privkey.pem
+      cert: ./certs/cert.pem
+admin:
+  port: 9876
+  host: localhost
+
+apiEndpoints:
+  api5:
+    host: "*"
+    paths: ["/pagos/capture-order", "/pagos/cancel-order", "/pagos/success"]
+  api4:
+    host: "*"
+    paths:
+      [
+        "/inventario/add-cards",
+        "/inventario/getBankCards",
+        "/inventario/delete-card",
+      ]
+  api1:
+    host: "*"
+    paths: "/usuario/*"
+  api2:
+    host: "*"
+    paths: "/inventario/*"
+  api3:
+    host: "*"
+    paths: "/vitrina/getPrices"
+  api:
+    host: "*"
+    paths: "/*"
+
+serviceEndpoints:
+  vitrinaProductosService:
+    url: "https://caballo.thenexusbattlesii.online:4000"
+  carroComprasService:
+    url: "https://dragon.thenexusbattlesii.online:4000"
+  manejoUsuariosService:
+    url: "https://conejo.thenexusbattlesii.online:4000"
+  portalPagosService:
+    url: "https://serpiente.thenexusbattlesii.online:4000"
+  inventarioService:
+    url: "https://mono.thenexusbattlesii.online:4000"
+  listaDeseosService:
+    url: "https://cabra.thenexusbattlesii.online:4000"
+
+policies:
+  - proxy
+  - jwt
+  - request-transformer
+
+pipelines:
+  pipeline_5:
+    apiEndpoints:
+      - api5
+    policies:
+      - jwt:
+          - action:
+              secretOrPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJvA2NnE7PAKYrEDafXpOOQp0yahOhKXgPpRA5BUtOpTmVOmRhmTSKKQPJ8CXsCu6TM9TOQxKrIpZcyRe44zpq39sQGDDbmUpUXWv3Sq/qDaHY2REaCccXZpZPOx5cGTuKTX9uGxi9SKm8+quYSa1FYHWde47CDfSs88gsBsYngQIDAQAB
+              checkCredentialExistence: false
+              jwtExtractor: query
+              jwtExtractorField: tokenApp
+      - proxy:
+          action:
+            secure: false
+            serviceEndpoint: portalPagosService
+            changeOrigin: true
+  pipeline_4:
+    apiEndpoints:
+      - api4
+    policies:
+      - jwt:
+          - action:
+              secretOrPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJvA2NnE7PAKYrEDafXpOOQp0yahOhKXgPpRA5BUtOpTmVOmRhmTSKKQPJ8CXsCu6TM9TOQxKrIpZcyRe44zpq39sQGDDbmUpUXWv3Sq/qDaHY2REaCccXZpZPOx5cGTuKTX9uGxi9SKm8+quYSa1FYHWde47CDfSs88gsBsYngQIDAQAB
+              checkCredentialExistence: false
+      - request-transformer:
+          - action:
+              body:
+                add:
+                  IdUsuario: "req.user.id.id"
+      - proxy:
+          action:
+            secure: false
+            serviceEndpoint: inventarioService
+            changeOrigin: true
+  pipeline_3:
+    apiEndpoints:
+      - api1
+    policies:
+      - proxy:
+          action:
+            secure: false
+            serviceEndpoint: manejoUsuariosService
+            changeOrigin: true
+  pipeline_1:
+    apiEndpoints:
+      - api2
+      - api3
+    policies:
+      - proxy:
+          - condition:
+              name: pathMatch
+              pattern: "/vitrina/getPrices"
+            action:
+              secure: false
+              serviceEndpoint: vitrinaProductosService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/inventario"
+            action:
+              secure: false
+              serviceEndpoint: inventarioService
+              changeOrigin: true
+  pipeline_2:
+    apiEndpoints:
+      - api
+    policies:
+      - jwt:
+          - action:
+              secretOrPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJvA2NnE7PAKYrEDafXpOOQp0yahOhKXgPpRA5BUtOpTmVOmRhmTSKKQPJ8CXsCu6TM9TOQxKrIpZcyRe44zpq39sQGDDbmUpUXWv3Sq/qDaHY2REaCccXZpZPOx5cGTuKTX9uGxi9SKm8+quYSa1FYHWde47CDfSs88gsBsYngQIDAQAB
+              checkCredentialExistence: false
+      - request-transformer:
+          - action:
+              body:
+                add:
+                  IdUsuario: "req.user.id.id"
+      - proxy:
+          - condition:
+              name: pathMatch
+              pattern: "/vitrina"
+            action:
+              secure: false
+              serviceEndpoint: vitrinaProductosService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/carro"
+            action:
+              secure: false
+              serviceEndpoint: carroComprasService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/pagos"
+            action:
+              secure: false
+              serviceEndpoint: portalPagosService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/deseos"
+            action:
+              secure: false
+              serviceEndpoint: listaDeseosService
+              changeOrigin: true
