@@ -38,17 +38,17 @@ apiEndpoints:
 
 serviceEndpoints:
   vitrinaProductosService:
-    url: "https://caballo.thenexusbattlesii.online:4000"
+    url: "https://vitrina:4003"
   carroComprasService:
-    url: "https://dragon.thenexusbattlesii.online:4000"
+    url: "https://carro:4000"
   manejoUsuariosService:
-    url: "https://conejo.thenexusbattlesii.online:4000"
+    url: "https://manejo-usuario:4004"
   portalPagosService:
-    url: "https://serpiente.thenexusbattlesii.online:4000"
+    url: "https://pagos:4005"
   inventarioService:
-    url: "https://mono.thenexusbattlesii.online:4000"
+    url: "https://inventario:4002"
   listaDeseosService:
-    url: "https://cabra.thenexusbattlesii.online:4000"
+    url: "https://lista:4001"
 
 policies:
   - proxy
