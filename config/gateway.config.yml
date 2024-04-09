@@ -38,17 +38,17 @@ apiEndpoints:
 
 serviceEndpoints:
   vitrinaProductosService:
-    url: "https://vitrina:4003"
+    url: "https://vitrina:3000"
   carroComprasService:
-    url: "https://carro:4000"
+    url: "https://carro:3000"
   manejoUsuariosService:
-    url: "https://manejo-usuario:4004"
+    url: "https://manejo-usuario:3000"
   portalPagosService:
-    url: "https://pagos:4005"
+    url: "https://pagos:3000"
   inventarioService:
-    url: "https://inventario:4002"
+    url: "https://inventario:3000"
   listaDeseosService:
-    url: "https://lista:4001"
+    url: "https://lista:3000"
 
 policies:
   - proxy
