@@ -12,6 +12,9 @@ admin:
   host: localhost
 
 apiEndpoints:
+  api6:
+    host: "*"
+    paths: "/correo/send/confirmacion"
   api5:
     host: "*"
     paths: ["/pagos/capture-order", "/pagos/cancel-order", "/pagos/success"]
@@ -49,6 +52,8 @@ serviceEndpoints:
     url: "https://inventario:3000"
   listaDeseosService:
     url: "https://lista:3000"
+  correoService:
+    url: "https://correo:3000"
 
 policies:
   - proxy
@@ -102,6 +107,7 @@ pipelines:
     apiEndpoints:
       - api2
       - api3
+      - api6
     policies:
       - proxy:
           - condition:
@@ -117,6 +123,13 @@ pipelines:
             action:
               secure: false
               serviceEndpoint: inventarioService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/correo/send/confirmacion"
+            action:
+              secure: false
+              serviceEndpoint: correoService
               changeOrigin: true
   pipeline_2:
     apiEndpoints:
@@ -159,4 +172,11 @@ pipelines:
             action:
               secure: false
               serviceEndpoint: listaDeseosService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/correo"
+            action:
+              secure: false
+              serviceEndpoint: correoService
               changeOrigin: true
