@@ -14,7 +14,7 @@ admin:
 apiEndpoints:
   api7:
     host: "*"
-    paths: "/usuario/admin"
+    paths: ["/usuario/admin", "/usuario/admin/id"]
   api6:
     host: "*"
     paths: "/correo/send/confirmacion"
