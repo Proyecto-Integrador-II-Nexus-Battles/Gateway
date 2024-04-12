@@ -17,7 +17,7 @@ apiEndpoints:
     paths: ["/usuario/admin", "/usuario/admin/id"]
   api6:
     host: "*"
-    paths: "/correo/send/confirmacion"
+    paths: "/correo/*"
   api5:
     host: "*"
     paths: ["/pagos/capture-order", "/pagos/cancel-order", "/pagos/success"]
@@ -131,7 +131,7 @@ pipelines:
               changeOrigin: true
           - condition:
               name: pathMatch
-              pattern: "/correo/send/confirmacion"
+              pattern: "/correo"
             action:
               secure: false
               serviceEndpoint: correoService
