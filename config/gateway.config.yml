@@ -57,6 +57,8 @@ serviceEndpoints:
     url: "https://lista:3000"
   correoService:
     url: "https://correo:3000"
+  subastaService:
+    url: "https://subasta:3000"
 
 policies:
   - proxy
@@ -190,4 +192,11 @@ pipelines:
             action:
               secure: false
               serviceEndpoint: manejoUsuariosService
+              changeOrigin: true
+          - condition:
+              name: pathMatch
+              pattern: "/subasta"
+            action:
+              secure: false
+              serviceEndpoint: subastaService
               changeOrigin: true
