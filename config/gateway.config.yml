@@ -28,6 +28,9 @@ apiEndpoints:
         "/inventario/add-cards",
         "/inventario/getBankCards",
         "/inventario/delete-card",
+        "/inventario/add-creditos",
+        "/inventario/get-creditos",
+        "/inventario/delete-creditos",
       ]
   api1:
     host: "*"
