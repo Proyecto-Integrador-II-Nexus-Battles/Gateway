@@ -14,7 +14,7 @@ admin:
 apiEndpoints:
   api8:
     host: "*"
-    paths: ["/usuario/cuenta", "/usuario/newData", "/usuario/check/questions"]
+    paths: ["/usuario/cuenta", "/usuario/newData"]
   api7:
     host: "*"
     paths: ["/usuario/admin", "/usuario/admin/id"]
