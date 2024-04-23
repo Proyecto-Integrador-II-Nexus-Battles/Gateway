@@ -34,6 +34,8 @@ apiEndpoints:
         "/inventario/add-creditos",
         "/inventario/get-creditos",
         "/inventario/delete-creditos",
+        "/inventario/deckCard",
+        "/inventario/GetdeckCard",
       ]
   api1:
     host: "*"
