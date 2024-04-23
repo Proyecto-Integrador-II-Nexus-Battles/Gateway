@@ -12,6 +12,9 @@ admin:
   host: localhost
 
 apiEndpoints:
+  api8:
+    host: "*"
+    paths: ["/usuario/cuenta, /usuario/newData"]
   api7:
     host: "*"
     paths: ["/usuario/admin", "/usuario/admin/id"]
@@ -44,9 +47,6 @@ apiEndpoints:
   api:
     host: "*"
     paths: "/*"
-  api8:
-    host: "*"
-    paths: ["/usuario/cuenta, /usuario/newData"]
 
 serviceEndpoints:
   vitrinaProductosService:
