@@ -15,9 +15,6 @@ apiEndpoints:
   api8:
     host: "*"
     paths: ["/usuario/cuenta", "/usuario/newData"]
-  api7:
-    host: "*"
-    paths: ["/usuario/admin", "/usuario/admin/id"]
   api6:
     host: "*"
     paths: "/correo/*"
@@ -165,7 +162,6 @@ pipelines:
   pipeline_2:
     apiEndpoints:
       - api
-      - api7
     policies:
       - jwt:
           - action:
