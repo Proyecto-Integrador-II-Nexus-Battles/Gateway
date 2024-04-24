@@ -33,6 +33,7 @@ apiEndpoints:
         "/inventario/delete-creditos",
         "/inventario/deckCard",
         "/inventario/GetdeckCard",
+        "/inventario/delete/cards",
       ]
   api1:
     host: "*"
